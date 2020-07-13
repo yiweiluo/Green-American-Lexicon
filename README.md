@@ -3,14 +3,14 @@
 *[Link to comment-able Google doc](https://docs.google.com/document/d/19Jg9QInJdUQ0BOipj5rfdbyip-2kmw9c5c7xOoeC0Rg/edit)*
 
 ## Project components:
-* A. Identifying words correlated with high engagement 
+* **A. Identifying words correlated with high engagement**
 	1. Get data w/ signals of engagement using appropriate APIs for:
 		- [ ] tweets about climate change etc. (twint)
 		- [ ] posts from subreddits about climate change etc.
 		- [ ] other sources?
 	2. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
-* B. Identifying effective words
+* **B. Identifying effective words**
 	1. Review literature on effective climate change communication to compile [list of frames/strategies](https://docs.google.com/spreadsheets/d/1GEhVp_Yo9GPCnbvWYxIqJJRE556adaUOVjeBqd5Lky0/edit#gid=0)
 		- [ ] Framing literature (economic cost, (scientific) uncertainty)
 			- [ ] Gabrielle Wong-Parodi
@@ -22,13 +22,13 @@
 		- [ ] Gather datasets (news articles, tweets, Reddit posts)
 		- [ ] Stratify datasets according to variables like attitude, audience, author
 	4. Query models for replacement terms
-* C. Packaging components A+B in easy-to-use interface
+* **C. Packaging components A+B in easy-to-use interface**
 
 ## Potential project timeline:
 1. Data collection and pre-processing for components A. and B. (*2 weeks; July 13-July 27*)
 2. Component A. (run Reid's code) (*1 week; July 27-August 3*)
 3. Component B. 
-	* i. Lit review (*ongoing weeks 1-3*; July 13-August 3)
+	* i. Lit review (*ongoing weeks 1-3; July 13-August 3*)
 	* ii. Create some seed lexicons (*1 week; August 3-August 10*)
 	* iii.-iv. Train and query VSMs (*3 weeks; August 11-August 31*)
 4. Create model interfaces (*September*)
