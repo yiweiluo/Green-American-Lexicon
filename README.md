@@ -1,5 +1,7 @@
 # Green American Lexicon: NLP modeling
 
+[Link to comment-able Google doc](https://docs.google.com/document/d/19Jg9QInJdUQ0BOipj5rfdbyip-2kmw9c5c7xOoeC0Rg/edit)
+
 ## Project components:
 * A. Identifying words correlated with high engagement 
 	1. Get data w/ signals of engagement using appropriate APIs for:
@@ -9,7 +11,7 @@
 	2. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * B. Identifying effective words
-	1. Review literature on effective climate change communication to compile list of frames/strategies
+	1. Review literature on effective climate change communication to compile [list of frames/strategies](https://docs.google.com/spreadsheets/d/1GEhVp_Yo9GPCnbvWYxIqJJRE556adaUOVjeBqd5Lky0/edit#gid=0)
 		- [ ] Framing literature (economic cost, (scientific) uncertainty)
 			- [ ] Gabrielle Wong-Parodi
 			- [ ] [add more]
