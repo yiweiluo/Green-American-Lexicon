@@ -1,19 +1,18 @@
 # Green American Lexicon: NLP modeling
 
-Project components:
+## Project components:
 * A. Identifying words correlated with high engagement 
-	- [ ] Get data w/ signals of engagement
-		- [ ] Find appropriate APIs and request parameters for:
-			- [ ] tweets about climate change etc.
-			- [ ] posts from subreddits about climate change etc.
-			- [ ] other potential sources?
-	- [ ] Apply Reid's deconfounded lexicon induction model
+	1. Get data w/ signals of engagement using appropriate APIs for:
+		- [ ] tweets about climate change etc. (twint)
+		- [ ] posts from subreddits about climate change etc.
+		- [ ] other sources?
+	2. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * B. Identifying effective words
 	1. Review literature on effective climate change communication to compile list of frames/strategies
 		- [ ] Framing literature (economic cost, (scientific) uncertainty)
 			- [ ] Gabrielle Wong-Parodi
-			- [ ] <add more>
+			- [ ] [add more]
 		- [ ] Interviews Zach conducted with climate change NGOs and practitioners
 	2. Operationalize effective strategies computationally
 		- [ ] Create/curate lexicons associated with given frames/strategies 
@@ -23,22 +22,22 @@ Project components:
 	4. Query models for replacement terms
 * C. Packaging components A+B in easy-to-use interface
 
-Potential project timeline:
-- 1. Data collection and pre-processing for components A. and B. (2 weeks; July 13-July 27)
-- 2. Component A. (run Reid's code) (1 week; July 27-August 3)
-- 3. Component B. 
-	- i. Lit review (up to 3 weeks; July 13-August 3)
-	- ii. Create some seed lexicons (1 week; August 3-August 10)
-	- iii. Train and query VSMs (3 weeks; August 11-August 31)
-- 4. Create model interfaces (September)
+## Potential project timeline:
+1. Data collection and pre-processing for components A. and B. (2 weeks; July 13-July 27)
+2. Component A. (run Reid's code) (1 week; July 27-August 3)
+3. Component B. 
+	i. Lit review (up to 3 weeks; July 13-August 3)
+	ii. Create some seed lexicons (1 week; August 3-August 10)
+	iii. Train and query VSMs (3 weeks; August 11-August 31)
+4. Create model interfaces (September)
 
-Old:
+## Old:
 - [x] Reach out to Allison Koenecke about using off-the-shelf tweet classifier
 - [x] Classify Harold et al's tweet data
 - [x] Retrain language models for climate change affirmers, non-affirmers
 - [ ] Deconfounded lexicon induction for engagement prediction
 
-Ideas for TODOs:
+## Ideas for TODOs:
 
 - [ ] Context-aware engagement prediction
   - [ ] Deconfounded lexicon induction (https://nlp.stanford.edu/pubs/pryzant2018lexicon.pdf)
@@ -54,7 +53,7 @@ Ideas for TODOs:
   - [ ] Test data: manually annotate a set of tweet-length sentence pairs (differing in a candidate word/phrase) for their relative improvement
   - [ ] Look into other sources
 
-References:
+## References:
 - Deconfounded Lexicon Induction: https://nlp.stanford.edu/pubs/pryzant2018lexicon.pdf
 - SemEval stance prediction task: http://alt.qcri.org/semeval2016/task6/index.php?id=data-and-tool
 - LIWC: https://www.kovcomp.co.uk/wordstat/LIWC.html
