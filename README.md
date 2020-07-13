@@ -1,6 +1,6 @@
 # Green American Lexicon: NLP modeling
 
-[Link to comment-able Google doc](https://docs.google.com/document/d/19Jg9QInJdUQ0BOipj5rfdbyip-2kmw9c5c7xOoeC0Rg/edit)
+*[Link to comment-able Google doc](https://docs.google.com/document/d/19Jg9QInJdUQ0BOipj5rfdbyip-2kmw9c5c7xOoeC0Rg/edit)*
 
 ## Project components:
 * A. Identifying words correlated with high engagement 
