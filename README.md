@@ -1,24 +1,27 @@
-# cs229_reacclimate
+# Green American Lexicon: NLP modeling
 
-Project outline:
-* A. Identifying words correlated with high engagement
-	1. Getting data w/ signals of engagement
+Project components:
+* A. Identifying words correlated with high engagement 
+	- [ ] Get data w/ signals of engagement
 		- [ ] Find appropriate APIs and request parameters for:
 			- [ ] tweets about climate change etc.
 			- [ ] posts from subreddits about climate change etc.
-	2. Running Reid's deconfounded lexicon induction model
+			- [ ] other potential sources?
+	- [ ] Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * B. Identifying effective words
 	1. Review literature on effective climate change communication to compile list of frames/strategies
-		- [ ] framing literature (economic cost, (scientific) uncertainty)
-		- [ ] Gabrielle Wong-Parodi
+		- [ ] Framing literature (economic cost, (scientific) uncertainty)
+			- [ ] Gabrielle Wong-Parodi
+			- [ ] <add more>
+		- [ ] Interviews Zach conducted with climate change NGOs and practitioners
 	2. Operationalize effective strategies computationally
-		- [ ] create/curate lexicons associated with given frames/strategies 
+		- [ ] Create/curate lexicons associated with given frames/strategies 
 	3. Train word embedding models
-		- [ ] gather datasets (news articles, tweets, Reddit posts)
-		- [ ] separate datasets according to variables like attitude, audience, author
+		- [ ] Gather datasets (news articles, tweets, Reddit posts)
+		- [ ] Stratify datasets according to variables like attitude, audience, author
 	4. Query models for replacement terms
-* Packaging both components in easy-to-use interface
+* C. Packaging components A+B in easy-to-use interface
 
 Potential project timeline:
 - 1. Data collection and pre-processing for components A. and B. (2 weeks; July 13-July 27)
@@ -43,7 +46,6 @@ Ideas for TODOs:
 - [ ] Stance awareness (target = "Climate change is a real concern")
   - [ ] Intuition: want to maximize engagement score for tweets with pro-target stance and minimize engagement score for tweets with anti-target stance
   - [ ] Build classifier to classify stance of a tweet (based on: text features, account following network)
-  - [ ] Training data: SemEval 2016 Task 6?
 - [ ] Other algorithm tweaks
   - [ ] Thesaurus sources beyond WordNet to generate alternative candidates
   - [ ] Making use of language models: learn embedding space for each side (anti-/pro- climate change being a real concern) and propose nearest neighbors of positive sentiment words ("inspiration", "awesome", "economic growth") as candidates
