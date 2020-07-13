@@ -1,7 +1,16 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+
+
+
 *$py.class
+
+VSMs/all_affirm_tweets.pkl
+VSMs/all_deny_tweets.pkl
+VSMs/*.bin
+VSMs/per_user_search_term_scrapes
+VSMs/RNN_glove_model.pkl
 
 # C extensions
 *.so
