@@ -26,9 +26,9 @@
 1. Data collection and pre-processing for components A. and B. (2 weeks; July 13-July 27)
 2. Component A. (run Reid's code) (1 week; July 27-August 3)
 3. Component B. 
-	i. Lit review (up to 3 weeks; July 13-August 3)
-	ii. Create some seed lexicons (1 week; August 3-August 10)
-	iii. Train and query VSMs (3 weeks; August 11-August 31)
+	* i. Lit review (up to 3 weeks; July 13-August 3)
+	* ii. Create some seed lexicons (1 week; August 3-August 10)
+	* iii. Train and query VSMs (3 weeks; August 11-August 31)
 4. Create model interfaces (September)
 
 ## Old:
