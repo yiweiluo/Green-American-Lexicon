@@ -11,7 +11,7 @@
 	2. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * **B. Identifying effective words**
-	1. Review literature on effective climate change communication to compile [list of frames/strategies](https://docs.google.com/spreadsheets/d/1GEhVp_Yo9GPCnbvWYxIqJJRE556adaUOVjeBqd5Lky0/edit#gid=0)
+	1. Review literature on effective climate change communication to compile [master list of frames/strategies](https://docs.google.com/spreadsheets/d/1GEhVp_Yo9GPCnbvWYxIqJJRE556adaUOVjeBqd5Lky0/edit#gid=0)
 		- [ ] Framing literature (economic cost, (scientific) uncertainty)
 			- [ ] Gabrielle Wong-Parodi
 			- [ ] [add more]
