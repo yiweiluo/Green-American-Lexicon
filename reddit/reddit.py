@@ -5,15 +5,20 @@ import numpy as np
 import nltk
 import matplotlib.pyplot as plt
 import seaborn as sns
-from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
-import praw 
+import praw
 import pdb
 
 sia = SIA()
 
-reddit = praw.Reddit(client_id='-iAJLj4jaVbH8w',
-                     client_secret='1C13kAxwzJYpirt4vdYHTDqIubI',
-                     user_agent='zh2wang')
+# Create reddit instance
+reddit = praw.Reddit(client_id='1sbu376RCBiWRw',
+                     client_secret='NbqiHMPiKicBXvgfrID-xVNktZM',
+                     user_agent='mac:cc_framing:v1 (by /u/emma_cc_research)')
+
+subreddit = reddit.subreddit("redditdev")
+print(subreddit.display_name)  # Output: redditdev
+print(subreddit.title)         # Output: reddit Development
+print(subreddit.description)   # Output: A subreddit for discussion of ...
 
 headlines = set()
 df = pd.DataFrame( columns=['Author','upvotes','upvote_ratio','title', 'body',\
@@ -22,7 +27,7 @@ df = pd.DataFrame( columns=['Author','upvotes','upvote_ratio','title', 'body',\
 sr_name = 'climatechange'
 
 
-for submission in reddit.subreddit(sr_name).top(limit=999999):
+for submission in reddit.subreddit(sr_name).top(limit=None):
 	author = submission.author
 	upvotes = submission.score
 	upvote_ratio = submission.upvote_ratio
@@ -34,11 +39,8 @@ for submission in reddit.subreddit(sr_name).top(limit=999999):
 	sen_neu = title_polarity['neu']
 	df.loc[len(df),:] = [author, upvotes, upvote_ratio, title, body,\
 		sen_pos, sen_neg, sen_neu]
-	
+
 	print('%s -> %s\n' % (title_polarity, title))
 
 
 df.to_csv('subreddit_%s.csv' % sr_name)
-	
-
-
