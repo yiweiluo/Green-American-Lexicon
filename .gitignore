@@ -4,7 +4,7 @@ tweet_classification/all_affirm_tweets.pkl
 tweet_classification/all_deny_tweets.pkl
 tweet_classification/*.pkl
 reddit/praw_output/
-
+reddit/pushshift_output/
 old/
 
 # Byte-compiled / optimized / DLL files
