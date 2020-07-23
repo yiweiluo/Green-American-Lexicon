@@ -5,10 +5,19 @@
 ## Project components:
 * **A. Identifying words correlated with high engagement**
 	1. Get data w/ signals of engagement using appropriate APIs for:
-		- [ ] tweets about climate change etc. (twint)
-		- [ ] posts from subreddits about climate change etc.
-		- [ ] other sources?
-	2. Apply Reid's deconfounded lexicon induction model
+		- [ ] tweets about climate change etc. (`/u/scr/nlp/twitter` dump)
+		- [x] posts from subreddits about climate change etc.
+			- [ ] Reddit bot detection
+		- other potential sources:
+			- [ ] broadcast TV news dataset
+			- [ ] White House press releases
+	2. Explore data
+		- [ ] Understand subreddits qualitatively
+		- [ ] Divide up Reddit data into pro- and anti- climate change
+		- [ ] Log odds analyses (overall, by engagement, by stance)
+			* try length as engagement signal first (then others)
+			* apply other potential categories to data comparisons (e.g. whether original post mentions climate change)
+	3. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * **B. Identifying effective words**
 	1. Review literature on effective climate change communication to compile [master list of frames/strategies](https://docs.google.com/spreadsheets/d/1GEhVp_Yo9GPCnbvWYxIqJJRE556adaUOVjeBqd5Lky0/edit#gid=0)
@@ -16,22 +25,23 @@
 			- [ ] Gabrielle Wong-Parodi
 			- [ ] [add more]
 		- [ ] Interviews Zach conducted with climate change NGOs and practitioners
-	2. Operationalize effective strategies computationally
+	4. Operationalize effective strategies computationally
 		- [ ] Create/curate lexicons associated with given frames/strategies 
-	3. Train word embedding models
+	5. Train word embedding models
 		- [ ] Gather datasets (news articles, tweets, Reddit posts)
 		- [ ] Stratify datasets according to variables like attitude, audience, author
-	4. Query models for replacement terms
+	6. Query models for replacement terms
 * **C. Packaging components A+B in easy-to-use interface**
 
 ## Potential project timeline:
 1. Data collection and pre-processing for components A. and B. (*2 weeks; July 13-July 27*)
-2. Component A. (run Reid's code) (*1 week; July 27-August 3*)
-3. Component B. 
+2. Data exploration (*1 week; July 27-August 3*)
+3. Component A. (run Reid's code) (*1/2 week; August 3-August 5*)
+4. Component B. 
 	* i. Lit review (*ongoing weeks 1-3; July 13-August 3*)
-	* ii. Create some seed lexicons (*1 week; August 3-August 10*)
-	* iii.-iv. Train and query VSMs (*3 weeks; August 11-August 31*)
-4. Create model interfaces (*September*)
+	* ii. Create some seed lexicons (*1 week; August 6-August 12*)
+	* iii.-iv. Train and query VSMs (*3 weeks; August 13-September 2*)
+5. Create model interfaces (*rest of September*)
 
 ## Old:
 - [x] Reach out to Allison Koenecke about using off-the-shelf tweet classifier
