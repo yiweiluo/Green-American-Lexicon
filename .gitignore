@@ -1,6 +1,6 @@
 tweet_classification/affirm_tweets
 tweet_classification/deny_tweets
-
+1_data_collection/reddit/*output/
 meeting_notes/
 tweet_classification/all_affirm_tweets.pkl
 tweet_classification/all_deny_tweets.pkl

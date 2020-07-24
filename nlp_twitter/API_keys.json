@@ -1,9 +1,0 @@
-{
-  "TWITTER_API_KEY": "UnET8rSBrKWKhSmp0dxlKcAUk",
-  "TWITTER_API_SECRET": "KhX1dpuGNbBdRXbxLaHeJOi3i9UZINY3Mm0ALcxzl5ykOEImL1",
-  "TWITTER_BEARER_TOKEN": "AAAAAAAAAAAAAAAAAAAAAKaIGAEAAAAAa%2FfB9oitwhRBIVJUtPkp8pkRehQ%3DKTLuGSVQ3tbrUnyLqKasqZucIUfSGjkmBueyFYpTIMf2T1zKdy",
-  "REMOTE_SCRAPE_DIR": "/u/scr/yiweil/sci_debates/scraping",
-  "REMOTE_PREPRO_DIR": "/u/scr/yiweil/sci_debates/prepro",
-  "BASE_DIR": "/Users/yiweiluo/scientific-debates",
-  "QUOTES_DIR": "url_quotes"
-}
