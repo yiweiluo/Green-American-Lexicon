@@ -1,0 +1,56 @@
+subreddit_name	initials	What is the subreddit about?		Can you infer a general political leaning of the subreddit?	cc_stance		What other impressions do you have about the subreddit?				Other notes
+r/politics	yiwei	general political news (in the US?)		pretty liberal--stuff defending AOC, in favor of police accountability bill, etc.	p		a fair amount of sarcasm in the comment threads, directed toward Republican politicians				posts mostly just links to news articles
+r/worldnews	yiwei	world news excluding US events		possibly liberal--stuff about COVID is aligned with liberal views at least	p		some debate and opposing views in comment threads! e.g. https://www.reddit.com/r/worldnews/comments/hwk6kv/coal_has_no_place_in_covid19_recovery_plans_says/				
+r/AskReddit	yiwei	place to ask and answer "thought-provoking" questions (worst movie you ever saw, a lot of "Xs of Reddit, what do you think about Y?"-type questions)		there are definitely liberals here (https://www.reddit.com/r/AskReddit/comments/hwdvep/whats_a_problem_that_you_think_will_never_be_fixed/)	p		main purpose may be for entertainment/humor?				
+r/Futurology	yiwei	discussion about the future of humanity, civilization		there is posting from liberal news outlets (the Guardian) about serious climate change events	p		a lot of AI-related posts				
+r/news	yiwei	a lot of general news, primarily US but also the world		pretty liberal I think, see https://www.reddit.com/r/news/comments/hw5jg3/house_votes_to_remove_confederate_statues_from/	p						
+r/science	yiwei	share latest advances in scientific research		presumably liberal, at least w.r.t. climate issues	p						tags available on subreddit website for "Environment", "Computer Science", etc.--should filter to these tags when cleaning data perhaps?
+r/The_Donald	yiwei	Trump, being pro-America		definitely conservative	a						since removed but data still available through archive
+r/todayilearned	hannah	random interesting facts, mostly about history and science		nonpolitical	n		most people in the comments like talking about trivia				subreddit rules include no politics, nothing subjective, no sources from the last 2 months, nothing misleading or inaccurate, etc.
+r/collapse	hannah	discusses the potential collapse of global civilization		liberal-- complaints about Trump, ALEC, big pharma, climate change, etc., many sources from NYT and Washinton Post	p		seems very dark/pessimistic				tags available for "climate," "energy," "systemic," "politics," "pollution," and more
+r/canada	hannah	Canada news		mix of political identities (according to the subreddit's 2019 survey)	n						the subreddit did a 2019 survey with relevant data on users' political identities, demographics, and perceptions of bias within the subreddit
+r/environment	hannah	general news about the environment (climate, plastic pollution, renewable energy, animals, etc.)		several liberal comments, news posts from the Guardian	p						most of the posts have zero comments
+r/pics	hannah	pictures-- some related to current events, art, some totally random		mixed views	n		many of the posts seem random				
+r/climateskeptics	hannah	climate science skepticism		pretty conservative (anti Biden, anti Greta Thunberg)	a		echo chamber for climate deniers				
+r/explainlikeimfive	hannah	questions and responses about how things work/science/random		responses to climate change questions seem liberal	p		seems polite/not much arguing in the comments				
+r/PlantedTank	hannah	aquatic flora and fauna		seems nonpolitical	n		mostly pictures of fish tanks				
+r/Homebrewing	hannah	diy brewing/fermentation		very little mention of anything political (unless it relates to brewing)	n						
+r/australia	hannah	general site about Australia-- mostly news		presumably liberal, see https://www.reddit.com/r/australia/comments/hspxd7/pm_and_trump_discuss_coronavirus_opening_economies/	p						tags for politics and no politics
+r/conspiracy	hannah	conspiracy theories		a bit conservative, although there are many arguments back and forth between political stances	a		seems like some of the posts are exaggerated/misinformed 				
+r/europe	hannah	general site about Europe-- news, photos, historical facts		mixed views	n		very broad subreddit				
+r/EcoInternet	hannah	news about climate change and the environment		liberal news sources	p		used for sharing news articles, not discussion				most of the posts have zero comments
+r/TalkativePeople	hannah	pretty random, but many posts on texting, dating, self-worth		pretty nonpolitical	n		mostly people promoting their youtube channels				
+r/climate 	hannah	climate news, politics, and activism		liberal	p		pretty polite discussions				
+r/askscience	hannah	science questions and answers		a bit liberal, though most of the posts are not political	p		main purpose seems to be education				
+r/AutoNewspaper	hannah	automated news articles		mixed-- some fox news, some bbc, independent, cnn, the hill, NYT	n		the posts are all from the subreddit admin				most of the posts have zero comments
+r/newsbotbot	hannah	automated news articles		mix of news sources	n		news sources are from twitter and posted by the subreddit admin				zero comments
+r/Showerthoughts	hannah	random amusing thoughts		nonpolitical	n		all of the posts are just a headline and no body				
+r/POLITIC	natalie										
+r/energy	natalie	energy news, posts about fossil fuels but also many other types of energy 		mixed - some liberal renewable energy discussion but also some conservative pro-oil/fossil fuel discussion	n		pretty diverse, the main theme seems to be breaking news related to energy				people in the comments seem to be very knowledge about the energy sector 
+r/bicycling	natalie	bikes and bike jokes 		pretty apolitical, except for a liberal BLM pinned post from the moderators	p		mostly just people talking about/giving advice about biking				the only political post was from the moderators in support of the black lives matter protests and it was met with mixed reviews 
+r/climatechange	natalie	climate change science and news		liberal news sources and scientific papers, there aren't really any conservative climate change deniers 	p		main purpose seems to be education and facts about climate change				the subreddit is described as "a rational discussion on a divisive topic" 
+r/thinkpad	natalie	all about lenovo thinkpad laptops 		apolitical	n		lots of photos and people excitedly talking about these thinkpad laptops 				
+r/mechmarket	natalie	for buying/trading keyboards		apolitical 	n		only used for keyboard sales				
+r/autotldr	natalie	makes tldrs (short versions) of long news articles		mixed, a variety of different leaning articles 	n		a bot, not a person, shortens the articles				the posts have zero comments 
+r/spacex	natalie	news/fan club for spacex		apolitical	n		posts are all focused only on spacex				
+r/Aquariums	natalie	advice about aquariums and fish		apolitical 	n		pictures of fish tanks and fish				
+r/Conservative	natalie	conservative news/discussion		fully conservative	a		mostly articles/news posts followed by lengthy comment sections				also very religious (mainly christian), they claim to not be a place for debate and that they will ban/block any liberal or leftist views
+r/skeptic	natalie	skepticism about current events - COVID19 and climate change mainly		unclear, seems to include people skeptical of both liberal and conservative news	n		covers a very wide range of topics 				seems to be anti-conspiracy theory and overall just skeptical/questioning of everything 
+r/space	natalie	space news and images/information		pretty apolitical, some liberal news sources (nytimes)	p		discussion is about space questions/trivia				
+r/technology	natalie	technology news/current events		mixed - conservative focus on privacy but also some liberal sources (nytimes)	n		very broad range of topics/news sources				
+r/EvolveSustain	natalie	global sustainability and development		pretty liberal - posts from the guardian/huffington post	p		articles about news/recent developments in sustainability (both in the US and globally)				most of the posts have zero comments
+r/NoStupidQuestions	natalie	questions about any topic 		possibly liberal - questions focused around the black lives matter protests, but overall most of the qeustions are pretty apolitical	n		very broad range of topics 				
+r/unpopularopinion	natalie	unpopular opinions and discussions about random topcis		doesn't seem to have any political tilt	n		the opinions and discussions span a vary wide range of topics 				
+r/EverythingScience	natalie	science news and research		slightly liberal as some of the posts are about topics like climate change 	p		made up of many different news articles/research papers 				many of the posts have zero/few comments
+r/BreakingNews24hr	natalie	tabloid-like sensationalized news 		liberal - very against Trump/Pence and the current republican administration	p		posts are extremely sensationalized 				most recent post was from 2 months ago, many of the posts have zero comments
+r/changemyview	natalie	coversation about potential contraversional opinions		doesn't seem to have any political tilt	n		posts are about a wide range of topics				
+r/neoliberal	natalie	neoliberal ideas/jokes/memes		neoliberal - unclear if it leans more conservative or liberal	n		many of the posts are memes/tweets				
+r/atheism	natalie	atheist/anti-religion posts and discussions 		liberal - posts in support of the LGBTQ community and against Trump	p		main theme is against religion - specifically christianity 				
+r/Libertarian	natalie	libertarian discussions		libertarian (both liberal and conservative news sources) 	n		overall seems against the current state of the US, wide range of topics covered				
+r/ChapoTrapHouse	natalie										
+r/IAmA	natalie	crowdsourced interviews of different people talking about their jobs 		possibly liberal - the moderators have pinned a post in support of black lives matter, but other than that things seem to be pretty apolitical 	p		very wide variety of different topics covered in this subreddit 				
+r/dataisbeautiful	natalie	data visualization with graphs/diagrams/etc		not really political, instead it's scientific 	n		focused on data visualization 				many of the datasets are about COVID-19
+r/PoliticalDiscussion	natalie	political questions/discussion		most of the questions are about the upcoming election - questioning both biden and trump 	n		overall very civil, not a debate instead just political questioning 				
+r/AdviceAnimals	natalie	jokes/memes about current events		unclear if there's a political leaning - seems pretty apolitical 	n		seems to be mainly for sharing jokes/memes				I'm not sure what the title - AdviceAnimals stands for 
+r/PoliticalHumor	natalie	political jokes 		pretty liberal - many of the jokes are about the trump administration 	p		mainly memes/tweets about current politics 				
+r/TrueReddit	natalie	news articles and discussions about them 		possibly liberal - some posts from liberal new sources (nytimes) 	p		mostly just discussions about various news articles/current events 				
