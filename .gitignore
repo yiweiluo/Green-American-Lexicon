@@ -1,5 +1,5 @@
 1_data_collection/nlp_twitter/API_keys.json
-
+1_data_collection/tv_news/transcripts
 tweet_classification/affirm_tweets
 tweet_classification/deny_tweets
 1_data_collection/reddit/*output/
