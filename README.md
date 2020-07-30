@@ -12,11 +12,18 @@
 			- [ ] broadcast TV news dataset
 			- [ ] White House press releases
 	2. Explore data
-		- [ ] Understand subreddits qualitatively
+		- [x] Understand subreddits qualitatively
 		- [ ] Divide up Reddit data into pro- and anti- climate change
 		- [ ] Log odds analyses (overall, by engagement, by stance)
 			* try length as engagement signal first (then others)
-			* apply other potential categories to data comparisons (e.g. whether original post mentions climate change)
+			* different partioning methods for low vs. high engagement posts
+				* thresholding function that’s dependent on a given sub’s engagement levels (mean, std.)
+				* absolute threshold (e.g. log(#comments) > 2; some subs may just write more engaging posts than others) -- Log Odds should be robust to choice of threshold 
+				* exclude middle (only look at extremes)
+			* apply other potential categories/filters to data comparisons 
+				* e.g. whether original post mentions climate change
+				* restrict word type (names, adjectives)
+				* restrict to words occurring in multiple subreddits
 	3. Apply Reid's deconfounded lexicon induction model
 		- [ ] decide on potential confounding variables
 * **B. Identifying effective words**
