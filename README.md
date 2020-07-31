@@ -7,10 +7,11 @@
 	1. Get data w/ signals of engagement using appropriate APIs for:
 		- [ ] tweets about climate change etc. (`/u/scr/nlp/twitter` dump)
 		- [x] posts from subreddits about climate change etc.
-			- [ ] Reddit bot detection
+			- [x] Reddit bot detection
 		- other potential sources:
-			- [ ] broadcast TV news dataset
+			- [ ] broadcast TV news dataset (also their visualizer: https://tvnews.stanford.edu/)
 			- [ ] White House press releases
+			- [Chevron-sponsored energy research](https://cisoft.usc.edu/uscchevron-frontiers-of-energy-resources-summer-camp/)
 	2. Explore data
 		- [x] Understand subreddits qualitatively
 		- [ ] Divide up Reddit data into pro- and anti- climate change
