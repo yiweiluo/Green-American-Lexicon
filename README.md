@@ -14,14 +14,18 @@
 			- [Chevron-sponsored energy research](https://cisoft.usc.edu/uscchevron-frontiers-of-energy-resources-summer-camp/)
 	2. Explore data
 		- [x] Understand subreddits qualitatively
-		- [ ] Divide up Reddit data into pro- and anti- climate change
+		- [x] Divide up Reddit data into pro- and anti- climate change
 		- [ ] Log odds analyses (overall, by engagement, by stance)
+			- [ ] fix stopword/pronoun bug
 			* try length as engagement signal first (then others)
+				- [ ] take into account comment length in engagement metric
+				- [ ] take into account follower count in engagement metric
 			* different partioning methods for low vs. high engagement posts
 				* thresholding function that’s dependent on a given sub’s engagement levels (mean, std.)
 				* absolute threshold (e.g. log(#comments) > 2; some subs may just write more engaging posts than others) -- Log Odds should be robust to choice of threshold 
 				* exclude middle (only look at extremes)
 			* apply other potential categories/filters to data comparisons 
+				- [ ] hope vs. concern (/fear)--NRC and SentiStrength; who's using and who's responding
 				* e.g. whether original post mentions climate change
 				* restrict word type (names, adjectives)
 				* restrict to words occurring in multiple subreddits
