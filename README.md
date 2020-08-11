@@ -5,7 +5,7 @@
 ## Project components:
 * **A. Identifying words correlated with high engagement**
 	1. Get data w/ signals of engagement using appropriate APIs for:
-		- [ ] tweets about climate change etc. (`/u/scr/nlp/twitter` dump)
+		- [x] tweets about climate change etc. (`/u/scr/nlp/twitter` dump)
 		- [x] posts from subreddits about climate change etc.
 			- [x] Reddit bot detection
 		- other potential sources:
