@@ -6,3 +6,5 @@
 3. Download the file `posts_with_words.pkl.zip` (containing all of the Reddit climate change data) from [here](https://drive.google.com/file/d/1z29MgH2WGN0JN8R5r07r6MUV1CCpzKF0/view?usp=sharing) and unzip it to the `reddit_data` subdirectory.
 
 Now you can run `python regress_reddit.py` to go through the entire multiple linear regression pipeline on the default feature sets, dependent variables, and subsets of the Reddit data. The coefficients etc. will be saved to a dataframe and also plotted, with results saved to `posts_with_words.pkl_out`.
+
+You can also explore `demo.ipynb` to get a sense of what the different parts of `regress_reddit.py` do.
