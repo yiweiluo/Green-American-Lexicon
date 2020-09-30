@@ -765,7 +765,7 @@ class DataGetter:
             print('\tMaking new directory for figures:',fig_dir)
             os.mkdir(fig_dir)
         
-        for feat_type in ['length','affect','affect_cat','ling','url','people','time']:
+        for feat_type in ['length','affect','affect_cat','ling','url_type','url_domain','people','time']:
             for feat in self.feats_dict[feat_type]:
                 fig = sns.distplot(self.data[feat])
                 fig.figure.savefig(os.path.join(fig_dir,'{}_histogram.png'.format(feat)))
