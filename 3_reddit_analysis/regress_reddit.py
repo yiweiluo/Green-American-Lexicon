@@ -36,8 +36,8 @@ class DataGetter:
         self.out_dir = os.path.join(config['base_dir'],data_fname + '_out')
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
-        self.feats_dict = temp_feats_d#None
-        self.data = temp_df#None
+        self.feats_dict = None
+        self.data = None
         
     def get_dims(self):
         """Returns the dimensions of `self.data`."""

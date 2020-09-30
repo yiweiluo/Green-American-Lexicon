@@ -10,3 +10,7 @@ Now you can run `python regress_reddit.py` to go through the entire multiple lin
 You can also explore `demo.ipynb` to get a sense of what the different parts of `regress_reddit.py` do.
 
 You can also use the scripts in `utils.py` to explore correlations among features and visualize more fine-grained distributions (e.g., of a feature broken down by subreddit).
+
+## Other notes:
+* This repository was made using python3.6.8.
+* When running on the NLP cluster, I usually set the memory flag to 100GB.
