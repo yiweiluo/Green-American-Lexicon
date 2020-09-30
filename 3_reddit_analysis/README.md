@@ -12,5 +12,6 @@ There are more detailed explanations of the different parts of `regress_reddit.p
 You can also use the scripts in `utils.py` to explore correlations among features and visualize more fine-grained distributions (e.g., of a feature broken down by subreddit). These are also illustrated in `demo.ipynb`.
 
 ## Other notes:
-* This repository was made using python3.6.8.
-* When running on the NLP cluster, I usually set the memory flag to 100GB.
+* This repository was made using python==3.6.8.
+* When running on the NLP cluster, I've been setting the memory flag to 100GB (lower may also be fine but I haven't tried).
+* As explained in `demo.ipynb`, cached feature files with pre-computed features for `posts_with_words.pkl` (found in `/posts_with_words.pkl_out/cached`) are used in the featurization step to speed things up. If you want to compute these features from scratch, you should move them to a different location. Warning: computing the SentiStrength scores takes a *long* time (~40 hours).
