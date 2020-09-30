@@ -789,7 +789,9 @@ class DataGetter:
         
 class LinReg:
 
-    def __init__(self, base_df, base_df_name, ind_vars, dep_vars, subsets, data_dir):
+    def __init__(self, base_df, base_df_name, ind_vars, dep_vars=['log_num_comments','log_score','ratio_comments'], 
+                 subsets=['all_posts','posts_without_links','conservative_posts','non_conservative_posts',
+                          'non_zero_engagement_posts']):
         self.base_df = base_df
         self.base_df_name = base_df_name
         self.ind_vars = ind_vars
