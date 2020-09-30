@@ -774,7 +774,7 @@ class DataGetter:
                     img = Image(os.path.join(fig_dir,'{}_histogram.png'.format(feat)))
                     display(img)
     
-        post_ids_per_cat = {cat: self.data.loc[self.data[cat]==1]['id'] for cat in self.feats_dict['url_type_feats']}
+        post_ids_per_cat = {cat: self.data.loc[self.data[cat]==1]['id'] for cat in self.feats_dict['url_type']}
         post_id2dom_cats = defaultdict(list)
         for cat in post_ids_per_cat:
             for p_id in post_ids_per_cat[cat]:
