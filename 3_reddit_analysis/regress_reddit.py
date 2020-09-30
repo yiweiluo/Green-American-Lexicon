@@ -675,6 +675,9 @@ class DataGetter:
         ling_cat_feats = ['{}_cat'.format(feat) for feat in ling_feats]
         url_feats = [feat for feat in self.data.columns if feat.startswith('is_') 
                      and feat != 'is_video' and feat != 'is_link_post']
+        url_type_feats = ['is_right','is_right_center','is_center','is_left_center','is_left',
+                          'is_sci','is_conspiracy','is_questionable']
+        url_domain_feats = list(set(url_feats).difference(set(url_type_feats)))
         people_feats = [feat for feat in self.data.columns if feat.startswith('has_')]
         time_feats = ['year']
         
@@ -687,7 +690,9 @@ class DataGetter:
             'affect_cat': affect_cat_feats,
             'ling': ling_feats,
             'ling_cat': ling_cat_feats,
-            'url': url_feats,
+            'all_url': url_feats,
+            'url_type': url_type_feats,
+            'url_domain': url_domain_feats,
             'people': people_feats,
             'time': time_feats,
             'categorical': feats_with_cats,
@@ -698,11 +703,11 @@ class DataGetter:
         for feat_type in self.feats_dict:
             tl = len(self.feats_dict[feat_type])
             self.feats_dict[feat_type] = set(self.feats_dict[feat_type]).intersection(set(self.data.columns))
-            print('\tFound {} out of {} possible {} features.'.format(len(self.feats_dict[feat_type]),
+            print('Found {} out of {} possible {} features.'.format(len(self.feats_dict[feat_type]),
                                                                       tl,feat_type.upper()))
         
         all_feats = list(set(self.feats_dict['categorical']) | set(self.feats_dict['non_categorical']))
-        print('Found {} total features in data.'.format(len(all_feats)))
+        print('\nFound {} total features in data.'.format(len(all_feats)))
         if ipython_disp:
             display(pd.DataFrame.from_dict(self.feats_dict,orient='index').T)
         
@@ -750,9 +755,7 @@ class DataGetter:
                     img = Image(os.path.join(fig_dir,'{}_histogram.png'.format(feat)))
                     display(img)
     
-        post_ids_per_cat = {cat: self.data.loc[self.data[cat]==1]['id'] for cat in 
-                   ['is_right','is_right_center','is_center','is_left_center','is_left',
-                     'is_sci','is_conspiracy','is_questionable']}
+        post_ids_per_cat = {cat: self.data.loc[self.data[cat]==1]['id'] for cat in self.feats_dict['url_type_feats']}
         post_id2dom_cats = defaultdict(list)
         for cat in post_ids_per_cat:
             for p_id in post_ids_per_cat[cat]:
