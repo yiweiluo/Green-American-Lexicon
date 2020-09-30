@@ -977,29 +977,34 @@ class LinReg:
         self.sig_results = sig_results_df
         self.sig_results.to_csv(os.path.join(out_dir,'sig_results.tsv'),
                                 sep='\t',header=True,index=False)
+        results_df.to_csv(os.path.join(out_dir,'full_results.tsv'),
+                                sep='\t',header=True,index=False)
     
     def plot_coefficients(self,feature_set,subset,savename):
         """Plots the coefficients of regression."""
         
         data_to_plot = self.sig_results.loc[self.sig_results['pretty_pred'].isin(feature_set)]
         data_to_plot = data_to_plot.loc[data_to_plot['subset']==subset]
-        my_order = data_to_plot.groupby(by=['pretty_pred'])['coeff'].median().sort_values(ascending=False).index
+        if len(data_to_plot) > 0:
+            my_order = data_to_plot.groupby(by=['pretty_pred'])['coeff'].median().sort_values(ascending=False).index
 
-        fig,ax = plt.subplots(figsize=(20,8))
-        sns.boxplot(x='pretty_pred',y='coeff',
-                    data=data_to_plot,
-                    ax=ax,color='blanchedalmond',order=my_order)
-        sns.stripplot(x='pretty_pred',y='coeff',hue='y_var',
-                    data=data_to_plot,
-                    ax=ax,jitter=0.5,s=8,linewidth=0.001,alpha=1,order=my_order)
-        ax.set_ylabel("Coefficient",fontsize=24)
-        ax.set_xlabel("",fontsize=24)
-        for ax in fig.axes:
-            ax.tick_params(labelrotation=90,labelsize=20)
-        plt.title('Multi regression results on {}'.format(subset),fontsize=28)
-        plt.legend(fontsize='x-large', title_fontsize='40')
-        plt.tight_layout()
-        fig.savefig(savename+'.png')
+            fig,ax = plt.subplots(figsize=(20,8))
+            sns.boxplot(x='pretty_pred',y='coeff',
+                        data=data_to_plot,
+                        ax=ax,color='blanchedalmond',order=my_order)
+            sns.stripplot(x='pretty_pred',y='coeff',hue='y_var',
+                        data=data_to_plot,
+                        ax=ax,jitter=0.5,s=8,linewidth=0.001,alpha=1,order=my_order)
+            ax.set_ylabel("Coefficient",fontsize=24)
+            ax.set_xlabel("",fontsize=24)
+            for ax in fig.axes:
+                ax.tick_params(labelrotation=90,labelsize=20)
+            plt.title('Multi regression results on {}'.format(subset),fontsize=28)
+            plt.legend(fontsize='x-large', title_fontsize='40')
+            plt.tight_layout()
+            fig.savefig(savename+'.png')
+        else:
+            print('No data to plot.')
         
         
 if __name__ == '__main__':
