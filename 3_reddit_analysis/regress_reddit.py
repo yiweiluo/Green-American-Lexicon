@@ -17,6 +17,7 @@ plt.rcParams.update({'figure.max_open_warning': 0})
 import seaborn as sns
 sns.set()
 from tabulate import tabulate
+from IPython.display import display, Image
 import scipy.stats as stats
 import statsmodels.formula.api as sm
 from sklearn import metrics
