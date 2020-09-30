@@ -1,0 +1,25 @@
+sinkhole
+tsunami
+erupt
+thunderstorm
+hail
+avalanche
+downpour
+heat wave
+disaster
+earthquake
+drought
+mudslide
+eruption
+bushfire
+catastrophe
+volcano
+blizzard
+fire
+landslide
+cyclone
+storm
+wildfire
+hurricane
+flood
+tornado
