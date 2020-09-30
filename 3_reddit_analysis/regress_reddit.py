@@ -1045,7 +1045,7 @@ if __name__ == '__main__':
     LR.batch_regress(out_dir=DG.get_out_dir())
     
     # do some plotting
-    for subset in LR.__dict__['subsets']:
+    for subset in LR.get_subsets():
         for feat_type in ['length', 'affect_cat', 'ling_cat', 'url', 'people', 'time']:
             feature_set = dg_feats_dict[feat_type]
             savename = os.path.join(DG.get_out_dir(),'figs','{}_{}_effects'.format(subset,feat_type))
