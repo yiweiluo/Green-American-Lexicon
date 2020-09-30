@@ -77,14 +77,14 @@ def plot_sub_dist(feature_,df_,savename,top_N_=30):
                order=my_order)
     plt.xticks(rotation=90)
     plt.tight_layout()
-    fig.savefig('{}_{}'.format(savename,feature_))#,tight_layout=True)
+    fig.savefig(savename)#,tight_layout=True)
     plt.clf()
     
 def plot_sub_cat_dist(feature_,df_,savename):
     """Plots the distribution of a feature in a dataset over different subreddit categories."""
     
     def get_subreddit_cat(x):
-        if x in ext_conservative_subs:
+        if x in conservative_subs:
             return 'conservative'
         else:
             if x not in religion_subs:
@@ -94,11 +94,10 @@ def plot_sub_cat_dist(feature_,df_,savename):
     to_plot['subreddit_cat'] = to_plot['subreddit'].apply(lambda x: get_subreddit_cat(x))
     
     fig,ax = plt.subplots(figsize=(10,8))
-    sns.boxplot(x='subreddit_cat',y=feature_,data=df_,ax=ax)
+    sns.boxplot(x='subreddit_cat',y=feature_,data=to_plot,ax=ax)
     plt.xticks(rotation=90)
     plt.tight_layout()
-    fig.savefig('{}_{}'.format(savename,feature_))#,tight_layout=True)
+    fig.savefig(savename)#,tight_layout=True)
     plt.clf()
-    
     
 
