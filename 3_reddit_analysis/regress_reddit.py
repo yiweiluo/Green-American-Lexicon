@@ -161,6 +161,7 @@ class DataGetter:
         print('\nAdding features...')
         # Set full path for reading inputs
         inputs_path = os.path.join(config['base_dir'], config['data_dir'])
+        cache_prefix = os.path.join(config['base_dir'], config['out_dir'])
         
         # Set blacklist words to ignore when computing lexicon-based features 
         BLACKLIST_WORDS = set(open(inputs_path+'/blacklist_words.txt','r').read().splitlines())
@@ -213,11 +214,10 @@ class DataGetter:
             print('\tDone!')
             
         if params['sentistrength']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'sentistrength_scores_concatenated.tsv')):
-                print('Adding cached SentiStrength features...')
-                sentistrength_df = pd.read_csv(os.path.join(config['base_dir'],
-                                                            self.out_dir,'sentistrength_scores_concatenated.tsv'),
-                                               sep='\t',header=0)
+            cached_senti_path = os.path.join(cache_prefix,'sentistrength_scores_concatenated.tsv')
+            if os.path.exists(cached_senti_path):
+                print('Found cached feature file at {}. Adding cached SentiStrength features...'.format(cached_senti_path))
+                sentistrength_df = pd.read_csv(cached_senti_path,sep='\t',header=0)
                 senti_pos_scores = dict(zip(sentistrength_df['post_id'],sentistrength_df['sentistrength_pos_rating']))
                 senti_neg_scores = dict(zip(sentistrength_df['post_id'],sentistrength_df['sentistrength_neg_rating']))
                 self.data['senti_pos'] = self.data['id'].apply(lambda x: senti_pos_scores[x])
@@ -234,12 +234,12 @@ class DataGetter:
                 print('\tDone.')
                 
                 # write header
-                with open(os.path.join(config['base_dir'],self.out_dir,'sentistrength_scores_concatenated.tsv'),'w') as f:
+                with open(cached_senti_path,'w') as f:
                     f.write('{}\t{}\t{}\n'.format('post_id','sentistrength_pos_rating',
                                                           'sentistrength_neg_rating'))
                 print('Scoring text...')
                 # write scores
-                with open(os.path.join(config['base_dir'],self.out_dir,'sentistrength_scores_concatenated.tsv'),'a') as f:
+                with open(cached_senti_path,'a') as f:
                     for _,row in self.data.iterrows():
                         p_id, text = row['id'], row['all_text']
                         pos_score, neg_score = senti.getSentiment(text,score='dual')[0]
@@ -248,14 +248,13 @@ class DataGetter:
                         f.write('{}\t{}\t{}\n'.format(p_id,pos_score,neg_score))
                         if _ % 100 == 0:
                             print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/sentistrength_scores_concatenated.tsv')
+                print('\tDone! Cached features have been saved to:',cached_senti_path)
             
         if params['vader']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'VADER_scores_concatenated.tsv')):
-                print('Adding cached VADER features...')
-                vader_df = pd.read_csv(os.path.join(config['base_dir'],self.out_dir,'VADER_scores_concatenated.tsv'),
-                                       sep='\t',header=0)
+            cached_vader_path = os.path.join(cache_prefix,'VADER_scores_concatenated.tsv')
+            if os.path.exists(cached_vader_path):
+                print('Found cached feature file at {}. Adding cached VADER features...'.format(cached_vader_path))
+                vader_df = pd.read_csv(cached_vader_path,sep='\t',header=0)
                 vader_df['scores'] = vader_df['scores'].apply(lambda x: json.loads(x))
                 vader_scores = dict(zip(vader_df['post_id'],vader_df['scores']))
                 self.data['vader_pos'] = self.data['id'].apply(lambda x: vader_scores[x]['pos'])
@@ -268,7 +267,7 @@ class DataGetter:
                 analyzer = SentimentIntensityAnalyzer()
 
                 print('No cached features file found. Computing VADER features...')
-                with open(os.path.join(config['base_dir'],self.out_dir,'VADER_scores_concatenated.tsv'),'w') as f:
+                with open(cached_vader_path,'w') as f:
                     # write header
                     f.write('{}\t{}\n'.format('post_id','scores'))
                     
@@ -282,13 +281,13 @@ class DataGetter:
                         f.write('{}\t{}\n'.format(p_id,json.dumps(out)))
                         if _ % 10000 == 0:
                             print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/VADER_scores_concatenated.tsv')
+                print('\tDone! Cached features have been saved to:',cached_vader_path)
                 
         if params['textblob']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'textblob_scores.pkl')):
-                print('Adding cached TextBlob features...')
-                textblob_scores = pickle.load(open(os.path.join(config['base_dir'],self.out_dir,'textblob_scores.pkl'),'rb'))
+            cached_textblob_path = os.path.join(cache_prefix,'textblob_scores.pkl')
+            if os.path.exists(cached_textblob_path):
+                print('Found cached feature file at {}. Adding cached TextBlob features...'.format(cached_textblob_path))
+                textblob_scores = pickle.load(open(cached_textblob_path,'rb'))
                 self.data['tb_sub'] = self.data['id'].apply(lambda x: textblob_scores['subj'][x])
                 self.data['tb_pol'] = self.data['id'].apply(lambda x: textblob_scores['pol'][x])
                 print('\tDone!')
@@ -304,15 +303,14 @@ class DataGetter:
                     self.data.at[_,'tb_pol'] = pol
                     if _ % 10000 == 0:
                         print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                pickle.dump({'subj':tb_subjs,'pol':tb_pols},
-                            open(os.path.join(config['base_dir'],self.out_dir,'textblob_scores.pkl'),'wb'))
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/textblob_scores.pkl')
+                pickle.dump({'subj':tb_subjs,'pol':tb_pols},open(cached_textblob_path,'wb'))
+                print('\tDone! Cached features have been saved to:',cached_textblob_path)
             
         if params['NRC']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'NRC_scores.pkl')):
-                print('Adding cached NRC features...')
-                NRC_scores = pickle.load(open(os.path.join(config['base_dir'],self.out_dir,'NRC_scores.pkl'),'rb'))
+            cached_NRC_path = os.path.join(cache_prefix,'NRC_scores.pkl')
+            if os.path.exists(cached_NRC_path):
+                print('Found cached feature file at {}. Adding cached NRC features...'.format(cached_NRC_path))
+                NRC_scores = pickle.load(open(cached_NRC_path,'rb'))
                 self.data['NRC_val'] = self.data['id'].apply(lambda x: NRC_scores[x]['val_sum'])
                 self.data['NRC_arousal'] = self.data['id'].apply(lambda x: NRC_scores[x]['arousal_sum'])
                 self.data['NRC_dom'] = self.data['id'].apply(lambda x: NRC_scores[x]['dom_sum'])
@@ -343,14 +341,15 @@ class DataGetter:
                     self.data.at[_,'NRC_dom'] = NRC_scores[p_id]['dom_sum']
                     if _ % 10000 == 0:
                         print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                pickle.dump(NRC_scores,open(os.path.join(config['base_dir'],self.out_dir,'NRC_scores.pkl'),'wb'))
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/NRC_scores.pkl')
+                pickle.dump(NRC_scores,open(cached_NRC_path,'wb'))
+                print('\tDone! Cached features have been saved to:',cached_NRC_path)
             
         if params['wiebe_subjectivity']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'wiebe_scores.pkl')):
-                print('Adding cached Wiebe et al. subjectivity features...')
-                wiebe_scores = pickle.load(open(os.path.join(config['base_dir'],self.out_dir,'wiebe_scores.pkl'),'rb'))
+            cached_wiebe_path = os.path.join(cache_prefix,'wiebe_scores.pkl')
+            if os.path.exists(cached_wiebe_path):
+                print('Found cached feature file at {}. Adding cached Wiebe et al. subjectivity features...'.format(
+                    cached_wiebe_path))
+                wiebe_scores = pickle.load(open(cached_wiebe_path,'rb'))
                 self.data['wiebe_strong'] = self.data['id'].apply(lambda x: wiebe_scores[x]['strongsubj'])
                 self.data['wiebe_weak'] = self.data['id'].apply(lambda x: wiebe_scores[x]['weaksubj'])
                 print('\tDone!')
@@ -377,9 +376,8 @@ class DataGetter:
                     self.data.at[_,'wiebe_weak'] = wiebe_scores[p_id]['weaksubj']
                     if _ % 10000 == 0:
                         print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                pickle.dump(wiebe_scores,open(os.path.join(config['base_dir'],self.out_dir,'wiebe_scores.pkl'),'wb'))
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/wiebe_scores.pkl')
+                pickle.dump(wiebe_scores,open(cached_wiebe_path,'wb'))
+                print('\tDone! Cached features have been saved to:',cached_wiebe_path)
             
         if params['neg']:
             print('Computing negation feature...')
@@ -411,10 +409,10 @@ class DataGetter:
             print('\tDone!')
             
         if params['emolex']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'emo_intensity_scores.pkl')):
-                print('Adding cached EmoLex features...')
-                emoint_scores = pickle.load(open(os.path.join(
-                    config['base_dir'],self.out_dir,'emo_intensity_scores.pkl'),'rb'))
+            cached_emo_path = os.path.join(cache_prefix,'emo_intensity_scores.pkl')
+            if os.path.exists(cached_emo_path):
+                print('Found cached feature file at {}. Adding cached EmoLex features...'.format(cached_emo_path))
+                emoint_scores = pickle.load(open(cached_emo_path,'rb'))
                 emoint_scores = {p_id: {'intensity':Counter(emoint_scores[p_id]['intensity']),
                                        'counted': emoint_scores[p_id]['counted']}
                                  for p_id in emoint_scores}
@@ -469,22 +467,20 @@ class DataGetter:
                     emoint_scores[p_id] = score_emo_intensity(lemmas)
                     if _ % 10000 == 0:
                         print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
-                pickle.dump(emoint_scores,open(os.path.join(
-                    config['base_dir'],self.out_dir,'emo_intensity_scores.pkl'),'wb'))
+                pickle.dump(emoint_scores,open(cached_emo_path,'wb'))
                 
                 for emo in ['anger','anticipation','disgust','fear','joy','sadness','surprise','trust']:
                     self.data['emo_{}'.format(emo)] = self.data['id'].apply(
                         lambda x: emoint_scores[x]['intensity'][emo])
                     self.data['emo_{}_counted'.format(emo)] = self.data['id'].apply(
                         lambda x: emoint_scores[x]['counted'][emo] if emo in emoint_scores[x]['counted'] else [])
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/emo_intensity_scores.pkl')
+                print('\tDone! Cached features have been saved to:',cached_emo_path)
             
         if params['morals']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'MFD_scores_per_post.tsv')):
-                print('Adding cached Moral Foundations features...')
-                morals_df = pd.read_csv(os.path.join(config['base_dir'],self.out_dir,'MFD_scores_per_post.tsv'),
-                                        sep='\t',header=0)
+            cached_mfd_path = os.path.join(cache_prefix,'MFD_scores_per_post.tsv')
+            if os.path.exists(cached_mfd_path):
+                print('Found cached feature file at {}. Adding cached Moral Foundations features...'.format(cached_mfd_path))
+                morals_df = pd.read_csv(cached_mfd_path,sep='\t',header=0)
                 morals_dict = dict(zip(morals_df['post_id'],morals_df['moral_foundation_counts'].apply(
                     lambda x: json.loads(x))))
                 morals_dict = {p_id: {'score': Counter(morals_dict[p_id]['score']),
@@ -531,7 +527,7 @@ class DataGetter:
                                 overlap_[word2foundation[t]].append(t)
                     return {'score': founds_,'counted': overlap_}
                 
-                with open(os.path.join(config['base_dir'],self.out_dir,'MFD_scores_per_post.tsv'),'w') as f:
+                with open(cached_mfd_path,'w') as f:
                     # write header
                     f.write('{}\t{}\n'.format('post_id','moral_foundation_counts'))
                     # write scores
@@ -541,8 +537,7 @@ class DataGetter:
                         if _ % 10000 == 0:
                             print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
                             
-                morals_df = pd.read_csv(os.path.join(config['base_dir'],self.out_dir,'MFD_scores_per_post.tsv'),
-                                        sep='\t',header=0)
+                morals_df = pd.read_csv(cached_mfd_path,sep='\t',header=0)
                 morals_dict = dict(zip(morals_df['post_id'],morals_df['moral_foundation_counts'].apply(
                     lambda x: json.loads(x))))
                 morals_dict = {p_id: {'score': Counter(morals_dict[p_id]['score']),
@@ -553,14 +548,14 @@ class DataGetter:
                         self.data[key_] = self.data['id'].apply(lambda x: morals_dict[x]['score'][key_])
                         self.data['{}_counted'.format(key_)] = self.data['id'].apply(
                             lambda x: morals_dict[x]['counted'][key_] if key_ in morals_dict[x]['counted'] else [])
-                print('\tDone! Cached features have been saved to:',
-                     self.out_dir+'/MFD_scores_per_post.tsv')
+                print('\tDone! Cached features have been saved to:',cached_mfd_path)
                 
         if params['values']:
-            if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'human_value_scores_per_post.tsv')):
-                print('Adding cached Basic Human Values features...')
-                hum_values_df = pd.read_csv(os.path.join(
-                    config['base_dir'],self.out_dir,'human_value_scores_per_post.tsv'),sep='\t',header=0)
+            cached_values_path = os.path.join(cache_prefix,'human_value_scores_per_post.tsv')
+            if os.path.exists(cached_values_path):
+                print('Found cached feature file at {}. Adding cached Basic Human Values features...'.format(
+                    cached_values_path))
+                hum_values_df = pd.read_csv(cached_values_path,sep='\t',header=0)
                 hum_values_dict = dict(zip(hum_values_df['post_id'],hum_values_df['human_value_counts'].apply(
                     lambda x: json.loads(x))))
                 hum_values_dict = {p_id: {'score': Counter(hum_values_dict[p_id]['score']),
@@ -604,7 +599,7 @@ class DataGetter:
                                 overlap_[word2value[t]].append(t)
                     return {'score': values_, 'counted': overlap_}
                 
-                with open(os.path.join(config['base_dir'],self.out_dir,'human_value_scores_per_post.tsv'),'w') as f:
+                with open(cached_values_path,'w') as f:
                     # write header
                     f.write('{}\t{}\n'.format('post_id','human_value_counts'))
                     # write scores
@@ -614,8 +609,7 @@ class DataGetter:
                         if _ % 10000 == 0:
                             print('\tOn post {} of {}.'.format(_,self.get_dims()[0]))
                             
-                hum_values_df = pd.read_csv(os.path.join(
-                    config['base_dir'],self.out_dir,'human_value_scores_per_post.tsv'),sep='\t',header=0)
+                hum_values_df = pd.read_csv(cached_values_path,sep='\t',header=0)
                 hum_values_dict = dict(zip(hum_values_df['post_id'],hum_values_df['human_value_counts'].apply(
                     lambda x: json.loads(x))))
                 hum_values_dict = {p_id: {'score': Counter(hum_values_dict[p_id]['score']),
@@ -626,8 +620,7 @@ class DataGetter:
                     self.data['{}_counted'.format(value)] = self.data['id'].apply(
                         lambda x: hum_values_dict[x]['counted'][value] 
                         if value in hum_values_dict[x]['counted'] else [])
-                print('\tDone! Cached features have been saved to:',
-                      self.out_dir+'/human_value_scores_per_post.tsv')
+                print('\tDone! Cached features have been saved to:',cached_values_path)
     
     def get_categorical_features(self, threshold='median', **params):
         """
