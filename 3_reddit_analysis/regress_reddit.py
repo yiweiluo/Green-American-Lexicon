@@ -648,9 +648,9 @@ class DataGetter:
         print('Creating categorical features...')
         for feat in params:
             if feat == 'senti_pos':
-                self.data['senti_pos_cat'].apply(lambda x: 1 if x > 1 else 0)
+                self.data['senti_pos_cat'] = self.data['senti_pos'].apply(lambda x: 1 if x > 1 else 0)
             if feat == 'senti_neg':
-                self.data['senti_neg_cat'].apply(lambda x: 1 if x > 1 else 0)
+                self.data['senti_neg_cat'] = self.data['senti_neg'].apply(lambda x: 1 if x > 1 else 0)
             else:
                 self.data[feat+'_cat'] = self.data[feat].apply(lambda x: 1 if x >= non_zero_thresholds[feat] else 0)
         print('\tDone!')
