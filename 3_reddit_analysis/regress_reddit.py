@@ -926,7 +926,7 @@ class LinReg:
         fit_ = sm.ols(formula=formula_, data=reg_df_).fit()
         return fit_
 
-    def batch_regress(self): 
+    def batch_regress(self,out_dir): 
         """Regresses different subsets of data, and also loops over different formulas."""
         print('\nDoing regressions...')
         results_list = []
@@ -962,7 +962,8 @@ class LinReg:
         sig_results_df['pretty_pred'] = sig_results_df['predictor'].apply(
             lambda x: x.replace('_zscore','').replace('_resid',''))
         self.sig_results = sig_results_df
-        
+        self.sig_results.to_csv(os.path.join(out_dir,'sig_results.tsv'),
+                                sep='\t',header=True,index=False)
     
     def plot_coefficients(self,feature_set,subset,savename):
         """Plots the coefficients of regression."""
