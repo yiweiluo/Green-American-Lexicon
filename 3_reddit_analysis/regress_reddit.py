@@ -943,7 +943,7 @@ class LinReg:
         """Regresses different subsets of data, and also loops over different formulas."""
         print('\nDoing regressions...')
         results_list = []
-        for _,subset in enumerate(self.subsets+['all_posts']):
+        for _,subset in enumerate(self.subsets):
             print('Regressing subset with:',subset.replace('_',' ').upper())
             if subset == 'all_posts':
                 reg_df = self.base_df
