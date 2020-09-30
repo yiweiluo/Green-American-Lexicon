@@ -1012,51 +1012,36 @@ if __name__ == '__main__':
     DG = DataGetter(base_dir='/juice/scr/yiweil/green-lexicon',data_dir='reddit_data',data_fname='posts_with_words.pkl')
     DG.load_data()
     DG.filter_data()
-    DG.get_features(length=True, url=True, top_N_domains=20, people=True, sentistrength=False, vader=False, 
+    DG.get_features(length=True, url=True, top_N_domains=20, people=True, sentistrength=True, vader=False, 
                     textblob=True, wiebe_subjectivity=False, NRC=False, neg=True, nat_disaster=True,
                     economy=True, emolex=True, morals=True, values=True)
-    DG.get_categorical_features(tb_sub=True,
-                               emo_anger=True,emo_anticipation=True,emo_disgust=True,emo_fear=True,
-                                emo_joy=True,emo_sadness=True,emo_surprise=True,emo_trust=True,
-                                negation=True,nat_dis=True,econ=True,
-                               vice_purity=True,vice_harm=True,vice_authority=True,vice_fairness=True,vice_loyalty=True,
-                              virtue_purity=True,virtue_harm=True,virtue_authority=True,virtue_fairness=True,virtue_loyalty=True,
+    DG.get_categorical_features(senti_pos=True,senti_neg=True,tb_sub=True,
+                                emo_anger=True,emo_anticipation=True,emo_disgust=True,
+                                emo_fear=True,emo_joy=True,emo_sadness=True,emo_surprise=True,
+                                emo_trust=True,negation=True,nat_dis=True,econ=True,
+                                vice_purity=True,vice_harm=True,vice_authority=True,
+                                vice_fairness=True,vice_loyalty=True,
+                                virtue_purity=True,virtue_harm=True,virtue_authority=True,
+                                virtue_fairness=True,virtue_loyalty=True,
                                 self_direction=True,stimulation=True,hedonism=True,achievement=True,power=True,
-                               security=True,conformity=True,tradition=True,benevolence=True,universalism=True)
+                                security=True,conformity=True,tradition=True,benevolence=True,universalism=True)
     DG.set_features()
     DG.get_zscores()
     DG.get_residuals()
-    DG.plot_features(ipython_disp=True)
+    DG.plot_features(ipython_disp=False)
     
-    dg_df = DG.get_data()
-    dg_df.shape
+    dg_df = DG.get_data().copy()
+    print('Shape of data to regress:',dg_df.shape)
     
-    all_feats = [x for x in dg_df.columns if 'zscore_resid' in x or x == 'log_len_zscore']
-    all_cat_feats = [x for x in all_feats if '_cat' in x]
-    cat_feats_only = []
-    visited = {}
-
-    for feat in all_cat_feats:
-        non_cat_version = feat.replace('_cat','')
-        assert non_cat_version in all_feats
-        visited[non_cat_version] = 0
-        visited[feat] = 0
-        cat_feats_only.append(feat)
-
-    for feat in all_feats:
-        if feat not in visited:
-            cat_feats_only.append(feat)
+    ind_vars = [f for f in dg_feats_dict['resid'] 
+            if f.replace('_zscore','').replace('_resid','') in dg_feats_dict['categorical']]+['log_len_zscore']
             
-    LR = LinReg(base_df=dg_df,base_df_name='all_posts',
-                ind_vars=cat_feats_only,dep_vars=['log_num_comments','log_score','ratio_comments'],
-           subsets=['posts_without_links','conservative_posts','non_conservative_posts','non_zero_engagement_posts'],
-           data_dir='/juice/scr/yiweil/green-lexicon/reddit_data')
+    LR = LinReg(dg_df,'default_post_data',ind_vars)
     LR.get_VIF()
     LR.get_Ys()
     LR.get_formulas()
     LR.get_sub_frames()
-    LR.batch_regress()
-    LR.get_significant_results().to_csv(os.path.join(DG.__dict__['out_dir'],'sig_results.tsv'),sep='\t',header=True,index=False)
+    LR.batch_regress(out_dir=DG.get_out_dir())
     
     # do some plotting
     for subset in LR.__dict__['subsets']:
