@@ -715,6 +715,7 @@ class DataGetter:
         """Computes z-scores for all features."""
         
         print('\nGetting zscores...')
+        zscored_feats = []
         for feat_type in self.feats_dict:
             for feat in self.feats_dict[feat_type]:
                 if feat == 'year':
@@ -723,7 +724,11 @@ class DataGetter:
                     self.data['{}_zscore'.format(feat)] = self.data['year'].apply(lambda x: (x-year_mean)/year_std)
                 else:
                     self.data['{}_zscore'.format(feat)] = stats.zscore(self.data[feat])
+                zscored_feats.append('{}_zscore'.format(feat))
         print('\tDone!')
+        
+        # Update self.feats_dict
+        self.feats_dict['zscored'] = zscored_feats
     
     def get_residuals(self,resid_by='log_len'):
         """Computes residuals for all features (except log(length)) using log(length)."""
@@ -736,6 +741,8 @@ class DataGetter:
                                              data=self.data).fit().resid
                 resid_feats.append(col+'_resid')
         print('\tDone!')
+        
+        self.feats_dict['resid'] = resid_feats
         
     def plot_features(self,ipython_disp=False):
         """Creates plots showing feature distributions (histograms for continuous, piecharts for categorical)"""
