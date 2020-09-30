@@ -139,7 +139,7 @@ class DataGetter:
             
         self.data.reset_index(drop=True,inplace=True)
 
-    def get_features(self, **params):
+    def get_features(self, temp_senti=False, **params):
         """
         Adds new columns to `self.data` for all specified features.
         
@@ -166,6 +166,7 @@ class DataGetter:
         inputs_path = os.path.join(config['base_dir'], config['data_dir'])
         cache_prefix = os.path.join(config['base_dir'], self.out_dir, 'cached')
         if not os.path.exists(cache_prefix):
+            print('test')
             os.mkdir(cache_prefix)
         
         # Set blacklist words to ignore when computing lexicon-based features 
@@ -219,7 +220,11 @@ class DataGetter:
             print('\tDone!')
             
         if params['sentistrength']:
-            cached_senti_path = os.path.join(cache_prefix,'sentistrength_scores_concatenated.tsv')
+            if temp_senti:
+                cached_senti_path = '/u/scr/yiweil/green-lexicon/reddit_data/post_sentiment_concatenated.tsv'
+            else:
+                cached_senti_path = os.path.join(cache_prefix,'sentistrength_scores_concatenated.tsv')
+            print('cached_senti_path:',cached_senti_path)
             if os.path.exists(cached_senti_path):
                 print('Found cached feature file at {}. Adding cached SentiStrength features...'.format(cached_senti_path))
                 sentistrength_df = pd.read_csv(cached_senti_path,sep='\t',header=0)
@@ -858,6 +863,9 @@ class LinReg:
         print(tabulate(vif.round(2).sort_values('VIF Factor')))
         self.collinear_feats = vif.loc[vif["VIF Factor"]>=threshold]["feature"].values
         print('\tFound {} collinear features.'.format(len(self.collinear_feats)))
+        
+    def set_collinear_feats(self, collinear_feats):
+        self.collinear_feats = collinear_feats
         
     def get_Ys(self):
         """Loads and prepares the dependent variables for regression."""
