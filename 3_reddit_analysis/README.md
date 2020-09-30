@@ -8,3 +8,5 @@
 Now you can run `python regress_reddit.py` to go through the entire multiple linear regression pipeline on the default feature sets, dependent variables, and subsets of the Reddit data. The coefficients etc. will be saved to a dataframe and also plotted, with results saved to `posts_with_words.pkl_out`.
 
 You can also explore `demo.ipynb` to get a sense of what the different parts of `regress_reddit.py` do.
+
+You can also use the scripts in `utils.py` to explore correlations among features and visualize more fine-grained distributions (e.g., of a feature broken down by subreddit).
