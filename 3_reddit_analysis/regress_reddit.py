@@ -1033,6 +1033,7 @@ if __name__ == '__main__':
     dg_df = DG.get_data().copy()
     print('Shape of data to regress:',dg_df.shape)
     
+    dg_feats_dict = DG.get_feats_dict(ipython_disp=False)
     ind_vars = [f for f in dg_feats_dict['resid'] 
             if f.replace('_zscore','').replace('_resid','') in dg_feats_dict['categorical']]+['log_len_zscore']
             
