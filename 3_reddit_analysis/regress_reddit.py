@@ -48,8 +48,10 @@ class DataGetter:
         """Returns the full dataframe `self.data`."""
         return self.data
     
-    def get_feats_dict(self):
+    def get_feats_dict(self, ipython_disp=False):
         """Returns a dictionary with key feature types and val features."""
+        if ipython_disp:
+            display(pd.DataFrame.from_dict(self.feats_dict,orient='index').T)
         return self.feats_dict
     
     def get_out_dir(self):
