@@ -1009,7 +1009,7 @@ class LinReg:
         
 if __name__ == '__main__':
     
-    DG = DataGetter(base_dir='/juice/scr/yiweil/green-lexicon',data_dir='reddit_data',data_fname='posts_with_words.pkl')
+    DG = DataGetter(data_fname='posts_with_words.pkl')
     DG.load_data()
     DG.filter_data()
     DG.get_features(length=True, url=True, top_N_domains=20, people=True, sentistrength=True, vader=False, 
