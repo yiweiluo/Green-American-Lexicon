@@ -227,7 +227,7 @@ class DataGetter:
                 cached_senti_path = '/u/scr/yiweil/green-lexicon/reddit_data/post_sentiment_concatenated.tsv'
             else:
                 cached_senti_path = os.path.join(cache_prefix,'sentistrength_scores_concatenated.tsv')
-            print('cached_senti_path:',cached_senti_path)
+            #print('cached_senti_path:',cached_senti_path)
             if os.path.exists(cached_senti_path):
                 print('Found cached feature file at {}. Adding cached SentiStrength features...'.format(cached_senti_path))
                 sentistrength_df = pd.read_csv(cached_senti_path,sep='\t',header=0)
