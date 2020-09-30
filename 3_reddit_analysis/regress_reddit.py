@@ -730,7 +730,6 @@ class DataGetter:
         zscored_feats = []
         for feat_type in self.feats_dict:
             for feat in self.feats_dict[feat_type]:
-                print('feat:',feat)
                 if feat == 'year':
                     year_mean = self.data['year'].mean()
                     year_std = self.data['year'].std()
@@ -750,7 +749,6 @@ class DataGetter:
         resid_feats = []
         for col in self.data.columns:
             if col.endswith('_zscore') and col != 'log_len_zscore':
-                print('on feat:',col)
                 self.data[col+'_resid'] = sm.ols(formula='{} ~ {}'.format(col,resid_by), 
                                              data=self.data).fit().resid
                 resid_feats.append(col+'_resid')
