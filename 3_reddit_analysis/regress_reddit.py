@@ -10,10 +10,7 @@ import pickle
 import glob
 import json
 from json import JSONDecodeError
-import requests
-import csv
 from collections import Counter, defaultdict
-import datetime
 from urllib.parse import urlparse
 import matplotlib.pyplot as plt
 plt.rcParams.update({'figure.max_open_warning': 0})
@@ -22,11 +19,9 @@ sns.set()
 from tabulate import tabulate
 import scipy.stats as stats
 import statsmodels.formula.api as sm
-from sklearn.model_selection import train_test_split 
-from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
-from utils import clean_s, clean_url
+from utils import clean_s, clean_url, corr_data
 
 with open("config.json") as config_file:
     config = json.load(config_file)
@@ -317,7 +312,7 @@ class DataGetter:
         if params['NRC']:
             if os.path.exists(os.path.join(config['base_dir'],self.out_dir,'NRC_scores.pkl')):
                 print('Adding cached NRC features...')
-                NRC_scores = pickle.load(open(inputs_path+'/NRC_scores.pkl','rb'))
+                NRC_scores = pickle.load(open(os.path.join(config['base_dir'],self.out_dir,'NRC_scores.pkl'),'rb'))
                 self.data['NRC_val'] = self.data['id'].apply(lambda x: NRC_scores[x]['val_sum'])
                 self.data['NRC_arousal'] = self.data['id'].apply(lambda x: NRC_scores[x]['arousal_sum'])
                 self.data['NRC_dom'] = self.data['id'].apply(lambda x: NRC_scores[x]['dom_sum'])
@@ -579,7 +574,7 @@ class DataGetter:
                 print('\tDone!')
             else:
                 print('No cached features file found. Computing Basic Human Values features...')
-                values_dict = pickle.load(open(inputs_path+'/basic_hum_values.pkl','rb'))
+                values_dict = pickle.load(open(inputs_path+'/  ','rb'))
                 word2value = {w: value for value in values_dict for w in values_dict[value]}
                 NATURAL_DISASTER_WORDS = set(open(inputs_path+'/natural_disaster_words.txt','r').read().splitlines())
                 ECONOMY_WORDS = set(open(inputs_path+'/economy_words.txt','r').read().splitlines())
@@ -657,9 +652,10 @@ class DataGetter:
                 self.data[feat+'_cat'] = self.data[feat].apply(lambda x: 1 if x >= non_zero_thresholds[feat] else 0)
         print('\tDone!')
     
-    def set_features(self):
+    def set_features(self, ipython_disp=False):
         """
-        Sets `self.Y` to the dependent variables.
+        Sets `self.feats_dict` to key (feature category), val (feature name) pairs to help keep track of all the different 
+        features.
         
         """
         
@@ -713,14 +709,8 @@ class DataGetter:
         
         all_feats = list(set(self.feats_dict['categorical']) | set(self.feats_dict['non_categorical']))
         print('Found {} total features in data.'.format(len(all_feats)))
-        print(pd.DataFrame.from_dict(self.feats_dict,orient='index').T)
-        
-        print('Getting ratio_comments as a dep. variable...')
-        comment_sent_ratios_df = pd.read_csv(os.path.join(
-            config['base_dir'], config['data_dir'],'post_comment_sent_ratios.tsv'),sep='\t',header=0)
-        p_id2ratio_comments = dict(zip(comment_sent_ratios_df['post_id'],comment_sent_ratios_df['ratio_pos_neg']))
-        self.data['ratio_comments'] = self.data['id'].apply(lambda x: p_id2ratio_comments[x])
-        print('\tDone!')
+        if ipython_disp:
+            display(pd.DataFrame.from_dict(self.feats_dict,orient='index').T)
         
     def get_zscores(self):
         """Computes z-scores for all features."""
