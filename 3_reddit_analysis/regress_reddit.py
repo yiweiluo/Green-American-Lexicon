@@ -1047,7 +1047,7 @@ if __name__ == '__main__':
     # do some plotting
     for subset in LR.__dict__['subsets']:
         for feat_type in ['length', 'affect_cat', 'ling_cat', 'url', 'people', 'time']:
-            feature_set = DG.__dict__['feats_dict'][feat_type]
-            savename = os.path.join(DG.__dict__['out_dir'],'figs','{}_{}_effects'.format(subset,feat_type))
+            feature_set = dg_feats_dict[feat_type]
+            savename = os.path.join(DG.get_out_dir(),'figs','{}_{}_effects'.format(subset,feat_type))
             LR.plot_coefficients(feature_set,subset,savename)
     
