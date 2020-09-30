@@ -165,7 +165,8 @@ class DataGetter:
         # Set full path for reading inputs
         inputs_path = os.path.join(config['base_dir'], config['data_dir'])
         cache_prefix = os.path.join(config['base_dir'], self.out_dir, 'cached')
-        os.mkdir(cache_prefix)
+        if not os.path.exists(cache_prefix):
+            os.mkdir(cache_prefix)
         
         # Set blacklist words to ignore when computing lexicon-based features 
         BLACKLIST_WORDS = set(open(inputs_path+'/blacklist_words.txt','r').read().splitlines())
