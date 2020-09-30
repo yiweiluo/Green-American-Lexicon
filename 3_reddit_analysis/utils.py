@@ -7,6 +7,15 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({'figure.max_open_warning': 0})
 from IPython.display import display
 
+with open("config.json") as config_file:
+    config = json.load(config_file)
+
+inputs_path = os.path.join(config['base_dir'],config['data_dir'])
+conservative_subs = set(open(os.path.join(inputs_path,'conservative_subs.txt'),'r').read().splitlines())
+conservative_subs = set([x.lower() for x in conservative_subs])
+religion_subs = set(open(os.path.join(inputs_path,'religion_subs.txt'),'r').read().splitlines())
+religion_subs = set([x.lower() for x in religion_subs])
+
 def clean_s(x):
     """Cleans special characters from a string, preserving case."""
     return re.sub(r'[^\w\s]','',x, re.UNICODE)
@@ -56,3 +65,37 @@ def corr_data(df,log_transform=True,do_pairplot=False,pairplot_savename="",disp_
     display(rho.T.astype(str) + p_.T)
     
     return (rho,pval)
+
+def plot_sub_dist(feature_,df_,savename,top_N_=30):
+    """Plots the distribution of a feature in a dataset over the top N subreddits high in that feature."""
+    fig,ax = plt.subplots(figsize=(10,8))
+    my_order = df_.groupby(by=['subreddit'])[feature_].median().sort_values(ascending=False).index[:top_N_]
+    sns.boxplot(x='subreddit',y=feature_,data=df_.loc[df_['subreddit'].isin(my_order)],ax=ax,
+               order=my_order)
+    plt.xticks(rotation=90)
+    plt.tight_layout()
+    fig.savefig('{}_{}'.format(savename,feature_))#,tight_layout=True)
+    plt.clf()
+    
+def plot_sub_cat_dist(feature_,df_,savename):
+    """Plots the distribution of a feature in a dataset over different subreddit categories."""
+    
+    def get_subreddit_cat(x):
+        if x in ext_conservative_subs:
+            return 'conservative'
+        else:
+            if x not in religion_subs:
+                return 'non_conservative'
+    
+    to_plot = df_.copy()
+    to_plot['subreddit_cat'] = to_plot['subreddit'].apply(lambda x: get_subreddit_cat(x))
+    
+    fig,ax = plt.subplots(figsize=(10,8))
+    sns.boxplot(x='subreddit_cat',y=feature_,data=df_,ax=ax)
+    plt.xticks(rotation=90)
+    plt.tight_layout()
+    fig.savefig('{}_{}'.format(savename,feature_))#,tight_layout=True)
+    plt.clf()
+    
+    
+
