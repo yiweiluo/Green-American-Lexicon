@@ -802,7 +802,7 @@ class LinReg:
         self.base_df = base_df
         self.base_df_name = base_df_name
         self.ind_vars = ind_vars
-        self.collinear_feats = []#None
+        self.collinear_feats = None
         self.dep_vars = dep_vars
         self.formulas = None
         self.subsets = subsets
@@ -812,8 +812,34 @@ class LinReg:
         if len(self.subsets) > 0:
             print('Additional regressions for the following subsets of posts will be created:',subsets)
         self.sig_results = None
+        
+        
+    def get_base_df(self):
+        return self.base_df
     
-    def get_VIF(self):
+    def get_base_df_name(self):
+        return self.base_df_name
+    
+    def get_ind_vars(self):
+        return self.ind_vars
+    
+    def get_collinear_feats(self):
+        return self.collinear_feats
+    
+    def get_dep_vars(self):
+        return self.dep_vars
+    
+    def get_formulas(self):
+        return self.formulas
+    
+    def get_subsets(self):
+        return self.subsets
+    
+    def get_significant_results(self):
+        """Returns summary of significant results."""
+        return self.sig_results
+    
+    def get_VIF(self, threshold=5):
         """Calculates the variance inflation factor for each feature to determine which are collinear."""
         from statsmodels.stats.outliers_influence import variance_inflation_factor
         from patsy import dmatrices
@@ -826,7 +852,7 @@ class LinReg:
         vif["VIF Factor"] = [variance_inflation_factor(X_.values, i) for i in range(X_.shape[1])]
         vif["feature"] = X_.columns
         print(tabulate(vif.round(2).sort_values('VIF Factor')))
-        self.collinear_feats = vif.loc[vif["VIF Factor"]>5]["feature"].values
+        self.collinear_feats = vif.loc[vif["VIF Factor"]>=threshold]["feature"].values
         print('\tFound {} collinear features.'.format(len(self.collinear_feats)))
         
     def get_Ys(self):
@@ -935,9 +961,6 @@ class LinReg:
             lambda x: x.replace('_zscore','').replace('_resid',''))
         self.sig_results = sig_results_df
         
-    def get_significant_results(self):
-        """Returns summary of significant results."""
-        return self.sig_results
     
     def plot_coefficients(self,feature_set,subset,savename):
         """Plots the coefficients of regression."""
