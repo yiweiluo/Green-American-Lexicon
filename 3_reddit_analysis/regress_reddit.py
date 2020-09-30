@@ -161,7 +161,7 @@ class DataGetter:
         print('\nAdding features...')
         # Set full path for reading inputs
         inputs_path = os.path.join(config['base_dir'], config['data_dir'])
-        cache_prefix = os.path.join(config['base_dir'], config['out_dir'])
+        cache_prefix = os.path.join(config['base_dir'], self.out_dir)
         
         # Set blacklist words to ignore when computing lexicon-based features 
         BLACKLIST_WORDS = set(open(inputs_path+'/blacklist_words.txt','r').read().splitlines())
