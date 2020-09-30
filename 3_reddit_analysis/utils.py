@@ -54,7 +54,7 @@ def corr_data(df,log_transform=True,do_pairplot=False,pairplot_savename="",disp_
         var_names = vars_
         
     if do_pairplot:
-        to_plot = df.sample(pairplot_N) if pairplot_N else df
+        to_plot = df_.sample(pairplot_N) if pairplot_N else df_
         sns_plot = sns.pairplot(to_plot, 
                                 vars=var_names, 
                                 diag_kind='kde', height=2.0)
