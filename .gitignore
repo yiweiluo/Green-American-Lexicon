@@ -1,5 +1,6 @@
 3_reddit_analysis/reddit_data/posts_with_words.pkl
 3_reddit_analysis/reddit_data/posts_with_words.pkl.zip
+1_data_collection/reddit/successful_cmv_comments.tsv
 
 
 1_data_collection/nlp_twitter/API_keys.json
