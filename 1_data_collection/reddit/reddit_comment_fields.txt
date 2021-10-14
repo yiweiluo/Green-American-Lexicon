@@ -2,7 +2,6 @@ mod_reports
 top_awarded_type
 no_follow
 banned_by
-_replies
 subreddit_name_prefixed
 link_id
 ups
@@ -56,3 +55,8 @@ collapsed_reason_code
 collapsed_reason
 num_reports
 awarders
+root
+parent_id
+reply_ids
+subreddit
+author
