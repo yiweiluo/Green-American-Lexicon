@@ -1,0 +1,10 @@
+(\S|\s)*(your|this)( comment| post)( has been | was )(overwritten|removed|deleted)(\s|\S)*
+(\S|\s)*(removed|deleted)(, | )(see (comment|post|submission) rule ([0-9]+|([A-Z])))(\s|\S)*
+(If your view has been changed)(.*)(award the user)
+(If a user)(.*)(changed your (mind|view))(.*)(award the user)
+(\S|\s)*(\|(Ups|Score)\|Author\|Post Title\|Link to comment)(\S|\s)*
+(\S|\s)*(your post is under consideration for removal under our (post|comment) rule)
+\[(blank|deleted|removed|overwritten)\].*
+(This (post|comment|submission) has been \*\*temporarily locked\*\* due to)(\S|\s)*
+(Lorem ipsum dolor sit amet)(\S|\s)*
+(Direct discussions of COVID-19 or the SARS-CoV2 virus itself that may directly pose a risk to health of individuals are still prohibited)(\S|\s)*
