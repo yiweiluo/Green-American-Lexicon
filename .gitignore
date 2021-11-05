@@ -1,7 +1,8 @@
 3_reddit_analysis/reddit_data/posts_with_words.pkl
 3_reddit_analysis/reddit_data/posts_with_words.pkl.zip
 1_data_collection/reddit/successful_cmv_comments.tsv
-
+old/
+2_data_exploration/figs/
 
 1_data_collection/nlp_twitter/API_keys.json
 1_data_collection/tv_news/transcripts
