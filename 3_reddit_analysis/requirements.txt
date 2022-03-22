@@ -14,6 +14,6 @@ tabulate==0.8.7
 textblob==0.15.3
 tldextract==2.2.2
 urlextract==1.0.0
-urllib3==1.24.1
+urllib3==1.26.5
 vaderSentiment==3.3.2
 xlrd==1.2.0
