@@ -14,8 +14,27 @@ import platform
 import argparse
 from cleantext import clean
 
+from urllib.parse import urlparse
+
+def get_url_domain(url):
+    url = re.split(']|\)',url)[0]
+    domain = urlparse(url).netloc
+    #re_split = re.split('.com|.org|.gov|.edu|.net|.co|.ca|.int|.us|.be|.de|.cn|.uk|.tw|.cc', domain.split('www.')[-1])
+    domain = domain.split('www.')[-1]
+    short_domain = sorted(domain.split('.'), key=lambda x: len(x), reverse=True)[0]
+    return (domain, short_domain)
+
+def get_urls(text):
+    urls = re.findall(r'(https?://\S+)', text)
+    urls = [url.replace('[dot]','.').replace('[at]','@').replace('.m.','.').replace('.i.','.') for url in urls]
+    return urls
+
 def flatten(l):
     return [item for sublist in l for item in sublist]
+
+def encode_surrogates(s):
+    """Encodes a string s containing emoji and other special chars for saving."""
+    return s.encode('utf-16', 'surrogatepass').decode('utf-16')
 
 clean_str = lambda s: clean(s,
                             fix_unicode=True,               # fix various unicode errors
@@ -51,10 +70,10 @@ def written_by_bot(corp,utt_idx,bot_mod_set):
 def filter_bots_mods(corp,bot_mod_set=bot_mod_set,filter_bot_suffixes=True,do_filter=False):
     
     if filter_bot_suffixes:
-        print("Filtering speakers with usernames ending in '-bot'...")
+        print("Filtering moderators and speakers with usernames ending in '-bot'...")
         speaker_ids = corp.get_speaker_ids()
         speaker_names = [corp.get_speaker(s_id).id for s_id in speaker_ids]
-        potential_bots = [x for x in speaker_names if type(x) == str and x.endswith('bot') 
+        potential_bots = [x for x in speaker_names if type(x) == str and x.lower().endswith('bot') 
                           and 'robot' not in x.lower()
                           and 'bottle' not in x.lower() and 'bottom' not in x.lower()]
         bot_mod_set |= set(potential_bots)
@@ -139,6 +158,13 @@ def get_stanza_jsonstream(utt,
     stanza_dir=STANZA_DIR):
     #if len(utt.text) > 0 and utt.text != '-' and utt.text != '/':
     return json_stream.load(open(os.path.join(STANZA_DIR,f'{utt.id}.json'),'r'), persistent=True)
+
+def get_stanza_parse(utt):
+    json_obj = get_stanza_jsonstream(utt)
+    if json_obj is not None:
+        return json_obj['parse']
+    else:
+        return []
     
 def get_stanza_lemmas(utt, adx_only=False, exclude_punc=True):
     json_obj = get_stanza_jsonstream(utt)
@@ -200,7 +226,9 @@ def is_outcome_leaf(utt):
     return (utt.id[:2] == 't1') and (utt.meta['outcome'] != -1)
 
 def is_OP_utt(corp,utt):
-    return utt.speaker.id == corp.get_utterance(utt.conversation_id).speaker.id
+    if utt.speaker.id == None:
+        return False
+    return (utt.speaker.id == corp.get_utterance(utt.conversation_id).speaker.id)
 
 def get_path_to_outcome_utt(corp, outcome_utt, ignore_OP=True, ignore_removed=True):
     """Returns the path of utterance IDs (excluding parent post) all the way to the outcome_utt (incl.)."""
@@ -249,3 +277,26 @@ def is_valid_utt(utt):
 removed_outcome_ids = pickle.load(open('removed_subtrees.pkl','rb'))
 def is_removed_subtree(subtree_outcome_utt,path_to_removed_subtrees=removed_outcome_ids):
     return subtree_outcome_utt.id in removed_outcome_ids
+
+abbrev_dict = {
+    3: 'K',
+    6: 'M',
+    9: 'B'}
+
+def abbreviate_N(n):
+    """Returns a str representation of an int n to abbreviate for plotting."""
+    str_n = str(n)
+    if len(str_n) > 9:
+        ix_cutoff = len(str_n)-9
+        rounded_tail = round(float(str_n[ix_cutoff:ix_cutoff+2])/100,1)
+        return str_n[:ix_cutoff]+str(rounded_tail)[1:] + abbrev_dict[9]
+    elif len(str_n) > 6:
+        ix_cutoff = len(str_n)-6
+        rounded_tail = round(float(str_n[ix_cutoff:ix_cutoff+2])/100,1)
+        return str_n[:ix_cutoff]+str(rounded_tail)[1:] + abbrev_dict[6]
+    elif len(str_n) > 3:
+        ix_cutoff = len(str_n)-3
+        rounded_tail = round(float(str_n[ix_cutoff:ix_cutoff+2])/100,1)
+        return str_n[:ix_cutoff]+str(rounded_tail)[1:] + abbrev_dict[3]
+    else:
+        return str_n
