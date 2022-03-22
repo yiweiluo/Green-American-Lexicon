@@ -1,5 +1,13 @@
 2_data_exploration/cached_features/
 2_data_exploration/for_Aditya.ipynb
+
+2_data_exploration/measuring_emotionality==MFD.ipynb
+2_data_exploration/measuring_emotionality==re-running_NRC.ipynb
+2_data_exploration/measuring_emotionality==running_emolex.ipynb
+2_data_exploration/cmv_vs_general_reddit-most_up-to-date-Copy1.ipynb
+2_data_exploration/cmv_vs_general_reddit-most_up-to-date_regression.ipynb
+2_data_exploration/scraping_deltalog_CMV_with_pushshift_API--update_N_too_small.ipynb
+
 claim_identification/
 
 3_reddit_analysis/reddit_data/posts_with_words.pkl
